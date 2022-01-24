@@ -1,4 +1,3 @@
-# インストールした discord.py を読み込む
 import discord
 import datetime
 import schedule
@@ -9,7 +8,6 @@ import re
 import config
 
 def job():
-    # 自分のBotのアクセストークンに置き換えてください
     TOKEN = config.TOKEN
 
     intents = discord.Intents.default()
@@ -31,18 +29,13 @@ def job():
         soup = BeautifulSoup(res.text,'html.parser')
         contestLatest = soup.find(id='contest-table-recent').find('tbody').find_all('tr')[0]
         latestContestDate = contestLatest.find('time').text.split(" ")[0]
-        # print(latestContestDate)
-        
-        # if str(datetime.datetime.now()).split(" ")[0] != str(latestContestDate):
+
         if "2021-12-10" != str(datetime.datetime.now()).split(" ")[0]:
-            print("We dosn't have a contest today...")
+            print("We don't have a contest today...")
         else:
             for guild in client.guilds:
                 for member in guild.members:
                     if member.nick is not None:                  
-                        # CHANNEL_ID = 855833226164305934
-            
-                        # channel = guild.get_channel(CHANNEL_ID)
                         channel = discord.utils.get(guild.text_channels, name="ほめます")
                         if channel is None:
                             print("This server doesn't have ほめます channel.")
@@ -80,7 +73,7 @@ def job():
     # Botの起動とDiscordサーバーへの接続
     client.run(TOKEN)
 
-schedule.every().day.at("18:54").do(job)
+schedule.every().day.at("23:30").do(job)
 
   
 while True:
